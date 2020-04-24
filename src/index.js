@@ -17,6 +17,16 @@ ReactDOM.render(
                 path="/admin"
                 render={(props) => <AdminLayout {...props} />}
             />
+            <Route
+                exact
+                path="/home"
+                render={(props) => <div style={{ color: "white" }}>Hello</div>}
+            />
+            <Route
+                render={(props) => (
+                    <div style={{ color: "white" }}>NOT FOUND</div>
+                )}
+            />
             <Redirect from="/" to="/admin/dashboard" />
         </Switch>
     </Router>,
