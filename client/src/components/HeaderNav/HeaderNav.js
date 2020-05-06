@@ -1,0 +1,97 @@
+import React from "react";
+import { Link } from "react-router-dom";
+import School from "layouts/School/School";
+
+function HeaderNav() {
+    return (
+        <>
+            {/* <School /> */}
+            <div className="site-mobile-menu site-navbar-target">
+                <div className="site-mobile-menu-header">
+                    <div className="site-mobile-menu-close mt-3">
+                        <span className="fas fa-times js-menu-toggle" />
+                    </div>
+                </div>
+                <div className="site-mobile-menu-body" />
+            </div>
+            <header
+                className="site-navbar py-4 js-sticky-header site-navbar-target"
+                role="banner"
+            >
+                <div className="container-fluid">
+                    <div className="d-flex align-items-center">
+                        <div className="site-logo mr-auto w-25">
+                            <Link to="/home/school">OneSchool</Link>
+                        </div>
+                        <div className="mx-auto text-center">
+                            <nav
+                                className="site-navigation position-relative text-right"
+                                role="navigation"
+                            >
+                                <ul className="site-menu main-menu js-clone-nav mx-auto d-none d-lg-block m-0 p-0">
+                                    <li>
+                                        <a
+                                            href="#home-section"
+                                            className="nav-link"
+                                        >
+                                            Home
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a
+                                            href="#courses-section"
+                                            className="nav-link"
+                                        >
+                                            Courses
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a
+                                            href="#programs-section"
+                                            className="nav-link"
+                                        >
+                                            Programs
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a
+                                            href="#teachers-section"
+                                            className="nav-link"
+                                        >
+                                            Teachers
+                                        </a>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+                        <div className="ml-auto w-25">
+                            <nav
+                                className="site-navigation position-relative text-right"
+                                role="navigation"
+                            >
+                                <ul className="site-menu main-menu site-menu-dark js-clone-nav mr-auto d-none d-lg-block m-0 p-0">
+                                    <li className="cta">
+                                        <a
+                                            href="#contact-section"
+                                            className="nav-link"
+                                        >
+                                            <span>Contact Us</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </nav>
+                            <a
+                                href="/"
+                                className="d-inline-block d-lg-none site-menu-toggle js-menu-toggle text-black float-right"
+                            >
+                                <span className="fas fa-bars" />
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </header>
+        </>
+    );
+}
+
+export default HeaderNav;

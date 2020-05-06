@@ -1,34 +1,34 @@
-import React from "react";
+import React, { lazy, Suspense } from "react";
 import ReactDOM from "react-dom";
 import { createBrowserHistory } from "history";
 import { Router, Route, Switch, Redirect } from "react-router-dom";
-
-import AdminLayout from "layouts/Admin/Admin.js";
-
-import "assets/scss/black-dashboard-react.scss";
+import Home from "layouts/Home/Home.js";
+import School from "layouts/School/School.js";
 import "assets/css/nucleo-icons.css";
-import LoginPage from "layouts/Login/LoginPage";
-import Register from "layouts/Register/Register";
+import { Provider } from "react-redux";
+import { createStore, applyMiddleware } from "redux";
+import thunk from "redux-thunk";
+import appReducer from "./reducers/app.reducer";
+const AdminLayout = lazy(() => import("layouts/Admin/Admin.js"));
 
 const hist = createBrowserHistory();
 
-ReactDOM.render(
-    <Router history={hist}>
-        <Switch>
-            <Route
-                path="/admin"
-                render={(props) => <AdminLayout {...props} />}
-            />
-            <Route
-                exact
-                path="/home"
-                render={(props) => <div style={{ color: "white" }}>Hello</div>}
-            />
-            <Route exact path="/login" render={(props) => <LoginPage />} />
-            <Route exact path="/register" render={(props) => <Register />} />
+const store = createStore(appReducer, applyMiddleware(thunk));
 
-            <Redirect from="/" to="/login" />
-        </Switch>
-    </Router>,
+ReactDOM.render(
+    <Provider store={store}>
+        <Router history={hist}>
+            <Suspense fallback={<div>Loading...</div>}>
+                <Switch>
+                    <Route
+                        path="/admin"
+                        render={(props) => <AdminLayout {...props} />}
+                    />
+                    <Route path="/" render={(props) => <Home {...props} />} />
+                    <Redirect from="*" to="/" />
+                </Switch>
+            </Suspense>
+        </Router>
+    </Provider>,
     document.getElementById("root")
 );

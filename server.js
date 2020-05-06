@@ -29,8 +29,8 @@ app.use("/api/memo", checkToken.checkTokenMW, memoRoute);
 app.use("/api/category", checkToken.checkTokenMW, categoryRoute);
 app.use("/api/login", loginRoute);
 
-app.get("*", (req, res) => {
-    res.sendFile(path.join(__dirname + "/clients/build/index.html"));
-});
+// app.get("*", (req, res) => {
+//     res.sendFile(path.join(__dirname + "/clients/build/index.html"));
+// });
 
 app.listen(PORT);

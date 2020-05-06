@@ -13,6 +13,8 @@ import routes from "routes.js";
 
 import logo from "assets/img/react-logo.png";
 
+import "assets/scss/black-dashboard-react.scss";
+
 var ps;
 
 class Admin extends React.Component {
