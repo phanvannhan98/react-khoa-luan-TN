@@ -1,11 +1,10 @@
-import React, { useState, useCallback, useEffect } from "react";
+import React, { useState, useCallback } from "react";
 import { Link, Redirect } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import * as actions from "../actions/actions";
+import * as actions from "../../actions/actions";
 import axios from "axios";
 
 function Login() {
-    const [load, setLoad] = useState(false);
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [isRedirect, setIsRedirect] = useState("");
@@ -48,7 +47,7 @@ function Login() {
     };
 
     if (isRedirect) {
-        return <Redirect to="/home/school" />;
+        return <Redirect to="/student-info" />;
     }
 
     return (

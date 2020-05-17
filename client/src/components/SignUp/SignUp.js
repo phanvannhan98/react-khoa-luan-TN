@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import { Link, Redirect } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import * as actions from "../../actions/actions";
 import axios from "axios";
+
 function SignUp() {
-    const [load, setLoad] = useState(false);
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [repassword, setRepassword] = useState("");
@@ -10,32 +12,39 @@ function SignUp() {
 
     const [errorL, setErrorL] = useState(false);
 
+    const dispatch = useDispatch();
+
+    const setLoadding = useCallback(
+        (data) => dispatch(actions.actSetLoadding(data)),
+        [dispatch]
+    );
+
     const onSubmit = (e) => {
         e.preventDefault();
-        setLoad(true);
+        setLoadding(1);
         if (username && password && repassword) {
             if (username.length < 7 || username.length > 20) {
                 username.length < 7
                     ? setErrorL("Register failed Username is too short!")
                     : setErrorL("Register failed Username is too long!");
-                setLoad(false);
+                setLoadding(100);
             } else if (password === repassword) {
                 axios
                     .post("/api/login/register", { username, password })
                     .then((doc) => {
                         if (doc.data) {
-                            setLoad(false);
+                            setLoadding(100);
                             setIsRedirect(true);
                         } else {
-                            setLoad(false);
+                            setLoadding(100);
                             setErrorL("Register failed \nUsername is exist");
                         }
                     });
             } else {
-                setLoad(false);
+                setLoadding(100);
                 setErrorL("Register failed \nPassword doesn't match ");
             }
-        } else setLoad(false);
+        } else setLoadding(100);
     };
 
     if (isRedirect) return <Redirect to="/home/login" />;

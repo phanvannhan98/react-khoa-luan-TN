@@ -878,6 +878,29 @@ h5,
     font-size: 1.1rem;
 }
 
+.intro-section1 {
+    position: relative;
+}
+.intro-section1,
+.intro-section1 .container > .row {
+    min-height: 900px;
+}
+.intro-section1.single-cover,
+.intro-section1.single-cover .container > .row {
+    height: 50vh;
+    min-height: 400px;
+}
+.intro-section1 h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 1.5rem;
+}
+.intro-section1 p {
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 1.1rem;
+}
+
 .img-absolute {
     position: absolute;
     right: 10%;
@@ -1351,6 +1374,7 @@ h5,
 }
 
 .course {
+    width: 30%;
     -webkit-box-shadow: 0 2px 2px -1px rgba(0, 0, 0, 0.3);
     box-shadow: 0 2px 2px -1px rgba(0, 0, 0, 0.3);
     -webkit-transition: 0.3s all ease-in-out;
@@ -1546,4 +1570,20 @@ h5,
 
 .user-info-btn i {
     color: #27293d;
+}
+.content {
+    overflow: hidden;
+}
+
+#about-me::-webkit-scrollbar-track {
+    background-color: #f5f5f596;
+}
+
+#about-me::-webkit-scrollbar {
+    width: 5px;
+    background-color: #9c9a9a96;
+}
+
+#about-me::-webkit-scrollbar-thumb {
+    background-color: #27293dcf;
 }

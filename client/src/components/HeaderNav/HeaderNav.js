@@ -1,11 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import School from "layouts/School/School";
 
 function HeaderNav() {
     return (
         <>
-            {/* <School /> */}
             <div className="site-mobile-menu site-navbar-target">
                 <div className="site-mobile-menu-header">
                     <div className="site-mobile-menu-close mt-3">
@@ -21,7 +19,7 @@ function HeaderNav() {
                 <div className="container-fluid">
                     <div className="d-flex align-items-center">
                         <div className="site-logo mr-auto w-25">
-                            <Link to="/home/school">OneSchool</Link>
+                            <Link to="/">OneSchool</Link>
                         </div>
                         <div className="mx-auto text-center">
                             <nav

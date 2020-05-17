@@ -2,17 +2,16 @@ import React, { lazy, Suspense } from "react";
 import ReactDOM from "react-dom";
 import { createBrowserHistory } from "history";
 import { Router, Route, Switch, Redirect } from "react-router-dom";
-import Home from "layouts/Home/Home.js";
-import School from "layouts/School/School.js";
-import "assets/css/nucleo-icons.css";
 import { Provider } from "react-redux";
 import { createStore, applyMiddleware } from "redux";
 import thunk from "redux-thunk";
 import appReducer from "./reducers/app.reducer";
+import "assets/css/nucleo-icons.css";
+
+import Home from "layouts/Home/Home.js";
 const AdminLayout = lazy(() => import("layouts/Admin/Admin.js"));
 
 const hist = createBrowserHistory();
-
 const store = createStore(appReducer, applyMiddleware(thunk));
 
 ReactDOM.render(
