@@ -6,15 +6,9 @@ import {
     KeyboardDatePicker,
 } from "@material-ui/pickers";
 
-export default function MaterialUIPickers() {
+export default function MaterialUIPickers(props) {
     // The first commit of Material-UI
-    const [selectedDate, setSelectedDate] = React.useState(
-        new Date("1998-08-10")
-    );
-
-    const handleDateChange = (date) => {
-        setSelectedDate(date);
-    };
+    const { ngaysinh, setNgaysinh } = props;
 
     return (
         <MuiPickersUtilsProvider utils={DateFnsUtils}>
@@ -23,8 +17,10 @@ export default function MaterialUIPickers() {
                 margin="normal"
                 id="date-picker-dialog"
                 format="dd/MM/yyyy"
-                value={selectedDate}
-                onChange={handleDateChange}
+                value={ngaysinh}
+                onChange={(date) => {
+                    setNgaysinh(date);
+                }}
                 KeyboardButtonProps={{
                     "aria-label": "change date",
                 }}

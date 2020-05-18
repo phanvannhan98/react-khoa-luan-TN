@@ -62,6 +62,7 @@ module.exports.checkTokenMW = async (req, res, next) => {
     if (tokenLogin) {
         jwt.verify(token, "secret", (err, userData) => {
             if (userData) {
+                // delete userData.userLogin.password;
                 req.userData = userData.userLogin;
                 next();
             } else if (err) {
@@ -74,12 +75,10 @@ module.exports.checkTokenMW = async (req, res, next) => {
 };
 
 module.exports.register = async (req, res) => {
-    console.log(req.body);
     let user = await User.find();
     let u = user.find((v) => v.username == req.body.username);
-    console.log(u);
+
     if (u) {
-        console.log("zo");
         res.send(false);
     } else {
         let us = new User({
@@ -91,4 +90,55 @@ module.exports.register = async (req, res) => {
             .then((doc) => res.send(doc))
             .catch((err) => console.log(err));
     }
+};
+
+module.exports.editUserInfo = async (req, res) => {
+    console.log(req.userData, req.body);
+
+    const { userData } = req;
+    const {
+        name,
+        ngaysinh,
+        soCmnd,
+        email,
+        sdt,
+        gioitinh,
+        diachi,
+        aboutme,
+    } = req.body;
+
+    let user = {
+        name,
+        ngaysinh,
+        soCmnd,
+        email,
+        sdt,
+        gioitinh,
+        diachi,
+        aboutme,
+    };
+
+    User.find({ _id: convertToObjectId(userData._id) })
+        .updateOne({ $set: user })
+        .exec()
+        .then((result) => {
+            if (result) {
+                res.status(200).json({
+                    data: result,
+                    message: "success",
+                });
+            }
+        })
+        .catch((err) => {
+            res.status(500).json({
+                error: err,
+            });
+        });
+};
+
+module.exports.userInfo = async (req, res) => {
+    const users = await User.findOne({
+        _id: convertToObjectId(req.userData._id),
+    });
+    res.send(users);
 };

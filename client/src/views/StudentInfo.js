@@ -2,8 +2,11 @@ import React, { useEffect } from "react";
 
 import { Button, Card, CardBody, CardFooter, CardText } from "reactstrap";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 function StudentInfo() {
+    const userInfo = useSelector((state) => state.userInfo);
+
     useEffect(() => {
         window.scrollTo(0, 0);
     }, []);
@@ -85,19 +88,24 @@ function StudentInfo() {
                                                             src={require("assets/img/emilyz.jpg")}
                                                         />
                                                         <h5 className="title">
-                                                            Mike Andrew
+                                                            {userInfo.name
+                                                                ? userInfo.name
+                                                                : "Mike Andrew"}
                                                         </h5>
                                                     </a>
                                                     <p className="description">
-                                                        Ceo/Co-Founder
+                                                        Student
                                                     </p>
                                                 </div>
                                                 <div className="card-description text-center">
-                                                    Vui lòng bổ sung đầy đủ
-                                                    thông tin cá nhân....
+                                                    {!userInfo.name
+                                                        ? `Vui lòng bổ sung đầy đủ
+                                                    thông tin cá nhân....`
+                                                        : userInfo.aboutme}
                                                     <i className="fas fa-hand-point-right"></i>
                                                     <Link to="/edit-info">
                                                         <i
+                                                            title="Edit Here!"
                                                             className="fas fa-edit"
                                                             style={{
                                                                 fontSize:

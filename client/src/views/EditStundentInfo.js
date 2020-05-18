@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import {
     Button,
     Card,
@@ -13,20 +13,52 @@ import {
     Col,
 } from "reactstrap";
 
-import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
-import FormHelperText from "@material-ui/core/FormHelperText";
-import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 import DatePickerMaterial from "../components/DatePickerMaterial/DatePickerMaterial";
+import CallApi from "../utils/apiCaller";
+
+import { useDispatch, useSelector } from "react-redux";
+import * as actions from "../actions/actions";
 
 function EditStundentInfo(props) {
-    const [aboutme, setAboutme] = useState(
-        "Do not be scared of the truth because we need to restart the human foundation in truth And I love you like Kanye loves Kanye I love Rick Owens’ bed design but the back is.."
+    const [userData, setUserData] = useState({
+        name: "Phan Văn Nhân",
+        ngaysinh: new Date("08-10-1998"),
+        soCmnd: "197433681",
+        gioitinh: 1,
+        email: "phanvannhan004@gmail.com",
+        sdt: "0979542273",
+        diachi: "5/9/19 Đặng Văn Ngữ, TP Huế",
+        aboutme:
+            "Do not be scared of the truth because we need to restart the human foundation in truth And I love you like Kanye loves Kanye I love Rick Owens’ bed design but the back is..",
+    });
+
+    const {
+        name,
+        ngaysinh,
+        soCmnd,
+        gioitinh,
+        email,
+        sdt,
+        diachi,
+        aboutme,
+    } = userData;
+
+    const dispatch = useDispatch();
+    const userInfo = useSelector((state) => state.userInfo);
+    const setLoadding = useCallback(
+        (data) => dispatch(actions.actSetLoadding(data)),
+        [dispatch]
     );
     useEffect(() => {
         window.scrollTo(0, 0);
     }, []);
+
+    useEffect(() => {
+        userInfo.name && setUserData(userInfo);
+    }, [userInfo]);
+
     return (
         <div className="intro-section1" id="home-section">
             <div
@@ -52,7 +84,6 @@ function EditStundentInfo(props) {
                                                 <Form
                                                     onSubmit={(e) => {
                                                         e.preventDefault();
-                                                        console.log("oke");
                                                     }}
                                                 >
                                                     <CardHeader>
@@ -72,10 +103,25 @@ function EditStundentInfo(props) {
                                                                         Tên
                                                                     </label>
                                                                     <Input
-                                                                        defaultValue="Phan Văn Nhân"
+                                                                        value={
+                                                                            name
+                                                                        }
                                                                         placeholder="Username"
                                                                         type="text"
                                                                         required
+                                                                        onChange={(
+                                                                            e
+                                                                        ) => {
+                                                                            setUserData(
+                                                                                {
+                                                                                    ...userData,
+                                                                                    name:
+                                                                                        e
+                                                                                            .target
+                                                                                            .value,
+                                                                                }
+                                                                            );
+                                                                        }}
                                                                     />
                                                                 </FormGroup>
                                                             </Col>
@@ -88,11 +134,26 @@ function EditStundentInfo(props) {
                                                                         Số CMND
                                                                     </label>
                                                                     <Input
-                                                                        defaultValue="197433681"
+                                                                        value={
+                                                                            soCmnd
+                                                                        }
                                                                         placeholder="Số CMND"
                                                                         type="number"
                                                                         min="0"
                                                                         required
+                                                                        onChange={(
+                                                                            e
+                                                                        ) => {
+                                                                            setUserData(
+                                                                                {
+                                                                                    ...userData,
+                                                                                    soCmnd:
+                                                                                        e
+                                                                                            .target
+                                                                                            .value,
+                                                                                }
+                                                                            );
+                                                                        }}
                                                                     />
                                                                 </FormGroup>
                                                             </Col>
@@ -108,7 +169,22 @@ function EditStundentInfo(props) {
                                                                     </label>
                                                                     <Select
                                                                         id="demo-simple-select"
-                                                                        defaultValue="1"
+                                                                        value={
+                                                                            gioitinh
+                                                                        }
+                                                                        onChange={(
+                                                                            e
+                                                                        ) =>
+                                                                            setUserData(
+                                                                                {
+                                                                                    ...userData,
+                                                                                    gioitinh:
+                                                                                        e
+                                                                                            .target
+                                                                                            .value,
+                                                                                }
+                                                                            )
+                                                                        }
                                                                         className="form-control"
                                                                     >
                                                                         <MenuItem value="1">
@@ -134,7 +210,21 @@ function EditStundentInfo(props) {
                                                                         Ngày
                                                                         sinh
                                                                     </label>
-                                                                    <DatePickerMaterial />
+                                                                    <DatePickerMaterial
+                                                                        ngaysinh={
+                                                                            ngaysinh
+                                                                        }
+                                                                        setNgaysinh={(
+                                                                            data
+                                                                        ) =>
+                                                                            setUserData(
+                                                                                {
+                                                                                    ...userData,
+                                                                                    ngaysinh: data,
+                                                                                }
+                                                                            )
+                                                                        }
+                                                                    />
                                                                 </FormGroup>
                                                             </Col>
                                                             <Col
@@ -147,9 +237,25 @@ function EditStundentInfo(props) {
                                                                         address
                                                                     </label>
                                                                     <Input
+                                                                        value={
+                                                                            email
+                                                                        }
                                                                         placeholder="mike@email.com"
                                                                         type="email"
                                                                         required
+                                                                        onChange={(
+                                                                            e
+                                                                        ) => {
+                                                                            setUserData(
+                                                                                {
+                                                                                    ...userData,
+                                                                                    email:
+                                                                                        e
+                                                                                            .target
+                                                                                            .value,
+                                                                                }
+                                                                            );
+                                                                        }}
                                                                     />
                                                                 </FormGroup>
                                                             </Col>
@@ -163,10 +269,26 @@ function EditStundentInfo(props) {
                                                                         thoại
                                                                     </label>
                                                                     <Input
+                                                                        value={
+                                                                            sdt
+                                                                        }
                                                                         placeholder="Số điện thoại"
                                                                         type="number"
                                                                         min="0"
                                                                         required
+                                                                        onChange={(
+                                                                            e
+                                                                        ) => {
+                                                                            setUserData(
+                                                                                {
+                                                                                    ...userData,
+                                                                                    sdt:
+                                                                                        e
+                                                                                            .target
+                                                                                            .value,
+                                                                                }
+                                                                            );
+                                                                        }}
                                                                     />
                                                                 </FormGroup>
                                                             </Col>
@@ -178,10 +300,25 @@ function EditStundentInfo(props) {
                                                                         Address
                                                                     </label>
                                                                     <Input
-                                                                        defaultValue="Bld Mihail Kogalniceanu, nr. 8 Bl 1, Sc 1, Ap 09"
+                                                                        value={
+                                                                            diachi
+                                                                        }
                                                                         placeholder="Home Address"
                                                                         type="text"
                                                                         required
+                                                                        onChange={(
+                                                                            e
+                                                                        ) => {
+                                                                            setUserData(
+                                                                                {
+                                                                                    ...userData,
+                                                                                    diachi:
+                                                                                        e
+                                                                                            .target
+                                                                                            .value,
+                                                                                }
+                                                                            );
+                                                                        }}
                                                                     />
                                                                 </FormGroup>
                                                             </Col>
@@ -203,10 +340,14 @@ function EditStundentInfo(props) {
                                                                         onChange={(
                                                                             e
                                                                         ) =>
-                                                                            setAboutme(
-                                                                                e
-                                                                                    .target
-                                                                                    .value
+                                                                            setUserData(
+                                                                                {
+                                                                                    ...userData,
+                                                                                    aboutme:
+                                                                                        e
+                                                                                            .target
+                                                                                            .value,
+                                                                                }
                                                                             )
                                                                         }
                                                                         type="textarea"
@@ -227,6 +368,29 @@ function EditStundentInfo(props) {
                                                                 // props.history.push(
                                                                 //     "/student-info"
                                                                 // );
+                                                                setLoadding(1);
+                                                                const userData = {
+                                                                    name,
+                                                                    ngaysinh,
+                                                                    soCmnd,
+                                                                    email,
+                                                                    sdt,
+                                                                    gioitinh,
+                                                                    diachi,
+                                                                    aboutme,
+                                                                };
+
+                                                                CallApi(
+                                                                    "/api/login/edit-user-info",
+                                                                    "POST",
+                                                                    userData
+                                                                ).then(
+                                                                    (res) => {
+                                                                        setLoadding(
+                                                                            100
+                                                                        );
+                                                                    }
+                                                                );
                                                             }}
                                                         >
                                                             Save

@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useEffect } from "react";
 import { Route, Switch, Redirect } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import LoaddingBar from "../../components/LoaddingBar/LoaddingBar";
@@ -21,6 +21,12 @@ function Home(props) {
     console.log("render");
     const isLoadding = useSelector((state) => state.loadding);
     const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(actions.actGetUserInfoRequest());
+        dispatch(actions.actGetAllSubjectRequest());
+        dispatch(actions.actGetAllSubSubjectRequest());
+    }, [dispatch]);
 
     const setLoadding = useCallback(
         (data) => dispatch(actions.actSetLoadding(data)),

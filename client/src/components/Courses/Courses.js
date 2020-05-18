@@ -1,6 +1,32 @@
 import React from "react";
+import { useSelector } from "react-redux";
+import Subject from "components/Subject/Subject";
 
 function Courses() {
+    const subject = useSelector((state) => state.subject);
+
+    const showCarousel = () => {
+        const carouselItem = (arr, isActive) => (
+            <div
+                key={arr[0]._id}
+                className={!isActive ? "carousel-item" : "carousel-item active"}
+            >
+                {arr.map((value) => (
+                    <Subject key={value._id} value={value} />
+                ))}
+            </div>
+        );
+
+        const result = [];
+        const itemLength = Math.ceil(subject.length / 3);
+        for (var i = 0; i < itemLength; i++) {
+            result.push(
+                carouselItem(subject.slice(3 * i, 3 * (i + 1)), i === 0)
+            );
+        }
+        return result;
+    };
+
     return (
         <>
             <div className="site-section courses-title" id="courses-section">
@@ -25,367 +51,11 @@ function Courses() {
                     <div className="row">
                         <div
                             id="carouselExampleIndicators"
-                            class="carousel slide"
+                            className="carousel slide"
                             data-ride="carousel"
                         >
-                            <div class="carousel-inner">
-                                <div class="carousel-item active">
-                                    <div className="course  bg-white h-100 align-self-stretch">
-                                        <figure className="m-0">
-                                            <a href="course-single.html">
-                                                <img
-                                                    src="/images/img_1.jpg"
-                                                    alt="Imagex"
-                                                    className="img-fluid"
-                                                />
-                                                {console.log("zo")}
-                                            </a>
-                                        </figure>
-                                        <div className="course-inner-text py-4 px-4">
-                                            <span className="course-price">
-                                                $20
-                                            </span>
-                                            <div className="meta">
-                                                <span className="icon-clock-o" />
-                                                4 Lessons / 12 week
-                                            </div>
-                                            <h3>
-                                                <a href="/">
-                                                    Study Law of Physics
-                                                </a>
-                                            </h3>
-                                            <p>
-                                                Lorem ipsum dolor sit amet ipsa
-                                                nulla adipisicing elit.
-                                            </p>
-                                        </div>
-                                        <div className="d-flex border-top stats">
-                                            <div className="py-3 px-4">
-                                                <span className="icon-users" />{" "}
-                                                2,193 students
-                                            </div>
-                                            <div className="py-3 px-4 w-25 ml-auto border-left">
-                                                <span className="icon-chat" /> 2
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="course bg-white h-100 align-self-stretch">
-                                        <figure className="m-0">
-                                            <a href="course-single.html">
-                                                <img
-                                                    src="/images/img_1.jpg"
-                                                    alt="Imagex"
-                                                    className="img-fluid"
-                                                />
-                                                {console.log("zo")}
-                                            </a>
-                                        </figure>
-                                        <div className="course-inner-text py-4 px-4">
-                                            <span className="course-price">
-                                                $20
-                                            </span>
-                                            <div className="meta">
-                                                <span className="icon-clock-o" />
-                                                4 Lessons / 12 week
-                                            </div>
-                                            <h3>
-                                                <a href="/">
-                                                    Study Law of Physics
-                                                </a>
-                                            </h3>
-                                            <p>
-                                                Lorem ipsum dolor sit amet ipsa
-                                                nulla adipisicing elit.
-                                            </p>
-                                        </div>
-                                        <div className="d-flex border-top stats">
-                                            <div className="py-3 px-4">
-                                                <span className="icon-users" />{" "}
-                                                2,193 students
-                                            </div>
-                                            <div className="py-3 px-4 w-25 ml-auto border-left">
-                                                <span className="icon-chat" /> 2
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="course bg-white h-100 align-self-stretch">
-                                        <figure className="m-0">
-                                            <a href="course-single.html">
-                                                <img
-                                                    src="/images/img_1.jpg"
-                                                    alt="Imagex"
-                                                    className="img-fluid"
-                                                />
-                                                {console.log("zo")}
-                                            </a>
-                                        </figure>
-                                        <div className="course-inner-text py-4 px-4">
-                                            <span className="course-price">
-                                                $20
-                                            </span>
-                                            <div className="meta">
-                                                <span className="icon-clock-o" />
-                                                4 Lessons / 12 week
-                                            </div>
-                                            <h3>
-                                                <a href="/">
-                                                    Study Law of Physics
-                                                </a>
-                                            </h3>
-                                            <p>
-                                                Lorem ipsum dolor sit amet ipsa
-                                                nulla adipisicing elit.
-                                            </p>
-                                        </div>
-                                        <div className="d-flex border-top stats">
-                                            <div className="py-3 px-4">
-                                                <span className="icon-users" />{" "}
-                                                2,193 students
-                                            </div>
-                                            <div className="py-3 px-4 w-25 ml-auto border-left">
-                                                <span className="icon-chat" /> 2
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="carousel-item">
-                                    <div className="course bg-white h-100 align-self-stretch">
-                                        <figure className="m-0">
-                                            <a href="course-single.html">
-                                                <img
-                                                    src="/images/img_1.jpg"
-                                                    alt="Imagex"
-                                                    className="img-fluid"
-                                                />
-                                                {console.log("zo")}
-                                            </a>
-                                        </figure>
-                                        <div className="course-inner-text py-4 px-4">
-                                            <span className="course-price">
-                                                $20
-                                            </span>
-                                            <div className="meta">
-                                                <span className="icon-clock-o" />
-                                                4 Lessons / 12 week
-                                            </div>
-                                            <h3>
-                                                <a href="/">
-                                                    Study Law of Physics
-                                                </a>
-                                            </h3>
-                                            <p>
-                                                Lorem ipsum dolor sit amet ipsa
-                                                nulla adipisicing elit.
-                                            </p>
-                                        </div>
-                                        <div className="d-flex border-top stats">
-                                            <div className="py-3 px-4">
-                                                <span className="icon-users" />{" "}
-                                                2,193 students
-                                            </div>
-                                            <div className="py-3 px-4 w-25 ml-auto border-left">
-                                                <span className="icon-chat" /> 2
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="course bg-white h-100 align-self-stretch">
-                                        <figure className="m-0">
-                                            <a href="course-single.html">
-                                                <img
-                                                    src="/images/img_1.jpg"
-                                                    alt="Imagex"
-                                                    className="img-fluid"
-                                                />
-                                                {console.log("zo")}
-                                            </a>
-                                        </figure>
-                                        <div className="course-inner-text py-4 px-4">
-                                            <span className="course-price">
-                                                $20
-                                            </span>
-                                            <div className="meta">
-                                                <span className="icon-clock-o" />
-                                                4 Lessons / 12 week
-                                            </div>
-                                            <h3>
-                                                <a href="/">
-                                                    Study Law of Physics
-                                                </a>
-                                            </h3>
-                                            <p>
-                                                Lorem ipsum dolor sit amet ipsa
-                                                nulla adipisicing elit.
-                                            </p>
-                                        </div>
-                                        <div className="d-flex border-top stats">
-                                            <div className="py-3 px-4">
-                                                <span className="icon-users" />{" "}
-                                                2,193 students
-                                            </div>
-                                            <div className="py-3 px-4 w-25 ml-auto border-left">
-                                                <span className="icon-chat" /> 2
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="course bg-white h-100 align-self-stretch">
-                                        <figure className="m-0">
-                                            <a href="course-single.html">
-                                                <img
-                                                    src="/images/img_1.jpg"
-                                                    alt="Imagex"
-                                                    className="img-fluid"
-                                                />
-                                                {console.log("zo")}
-                                            </a>
-                                        </figure>
-                                        <div className="course-inner-text py-4 px-4">
-                                            <span className="course-price">
-                                                $20
-                                            </span>
-                                            <div className="meta">
-                                                <span className="icon-clock-o" />
-                                                4 Lessons / 12 week
-                                            </div>
-                                            <h3>
-                                                <a href="/">
-                                                    Study Law of Physics
-                                                </a>
-                                            </h3>
-                                            <p>
-                                                Lorem ipsum dolor sit amet ipsa
-                                                nulla adipisicing elit.
-                                            </p>
-                                        </div>
-                                        <div className="d-flex border-top stats">
-                                            <div className="py-3 px-4">
-                                                <span className="icon-users" />{" "}
-                                                2,193 students
-                                            </div>
-                                            <div className="py-3 px-4 w-25 ml-auto border-left">
-                                                <span className="icon-chat" /> 2
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="carousel-item">
-                                    <div className="course bg-white h-100 align-self-stretch">
-                                        <figure className="m-0">
-                                            <a href="course-single.html">
-                                                <img
-                                                    src="/images/img_1.jpg"
-                                                    alt="Imagex"
-                                                    className="img-fluid"
-                                                />
-                                                {console.log("zo")}
-                                            </a>
-                                        </figure>
-                                        <div className="course-inner-text py-4 px-4">
-                                            <span className="course-price">
-                                                $20
-                                            </span>
-                                            <div className="meta">
-                                                <span className="icon-clock-o" />
-                                                4 Lessons / 12 week
-                                            </div>
-                                            <h3>
-                                                <a href="/">
-                                                    Study Law of Physics
-                                                </a>
-                                            </h3>
-                                            <p>
-                                                Lorem ipsum dolor sit amet ipsa
-                                                nulla adipisicing elit.
-                                            </p>
-                                        </div>
-                                        <div className="d-flex border-top stats">
-                                            <div className="py-3 px-4">
-                                                <span className="icon-users" />{" "}
-                                                2,193 students
-                                            </div>
-                                            <div className="py-3 px-4 w-25 ml-auto border-left">
-                                                <span className="icon-chat" /> 2
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="course bg-white h-100 align-self-stretch">
-                                        <figure className="m-0">
-                                            <a href="course-single.html">
-                                                <img
-                                                    src="/images/img_1.jpg"
-                                                    alt="Imagex"
-                                                    className="img-fluid"
-                                                />
-                                                {console.log("zo")}
-                                            </a>
-                                        </figure>
-                                        <div className="course-inner-text py-4 px-4">
-                                            <span className="course-price">
-                                                $20
-                                            </span>
-                                            <div className="meta">
-                                                <span className="icon-clock-o" />
-                                                4 Lessons / 12 week
-                                            </div>
-                                            <h3>
-                                                <a href="/">
-                                                    Study Law of Physics
-                                                </a>
-                                            </h3>
-                                            <p>
-                                                Lorem ipsum dolor sit amet ipsa
-                                                nulla adipisicing elit.
-                                            </p>
-                                        </div>
-                                        <div className="d-flex border-top stats">
-                                            <div className="py-3 px-4">
-                                                <span className="icon-users" />{" "}
-                                                2,193 students
-                                            </div>
-                                            <div className="py-3 px-4 w-25 ml-auto border-left">
-                                                <span className="icon-chat" /> 2
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="course bg-white h-100 align-self-stretch">
-                                        <figure className="m-0">
-                                            <a href="course-single.html">
-                                                <img
-                                                    src="/images/img_1.jpg"
-                                                    alt="Imagex"
-                                                    className="img-fluid"
-                                                />
-                                                {console.log("zo")}
-                                            </a>
-                                        </figure>
-                                        <div className="course-inner-text py-4 px-4">
-                                            <span className="course-price">
-                                                $20
-                                            </span>
-                                            <div className="meta">
-                                                <span className="icon-clock-o" />
-                                                4 Lessons / 12 week
-                                            </div>
-                                            <h3>
-                                                <a href="/">
-                                                    Study Law of Physics
-                                                </a>
-                                            </h3>
-                                            <p>
-                                                Lorem ipsum dolor sit amet ipsa
-                                                nulla adipisicing elit.
-                                            </p>
-                                        </div>
-                                        <div className="d-flex border-top stats">
-                                            <div className="py-3 px-4">
-                                                <span className="icon-users" />{" "}
-                                                2,193 students
-                                            </div>
-                                            <div className="py-3 px-4 w-25 ml-auto border-left">
-                                                <span className="icon-chat" /> 2
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                            <div className="carousel-inner">
+                                {showCarousel()}
                             </div>
                         </div>
                     </div>
@@ -394,7 +64,6 @@ function Courses() {
                             <button
                                 className="customPrevBtn btn btn-primary m-1"
                                 href="#carouselExampleIndicators"
-                                role="button"
                                 data-slide="prev"
                             >
                                 Prev
@@ -402,7 +71,6 @@ function Courses() {
                             <button
                                 className="customNextBtn btn btn-primary m-1"
                                 href="#carouselExampleIndicators"
-                                role="button"
                                 data-slide="next"
                             >
                                 Next
