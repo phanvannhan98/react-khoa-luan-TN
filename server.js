@@ -5,8 +5,6 @@ const path = require("path");
 const mongoose = require("mongoose");
 
 // Route
-const memoRoute = require("./routes/memo.route");
-const categoryRoute = require("./routes/category.route");
 const subjectRoute = require("./routes/subject.route");
 const subSubjectRoute = require("./routes/subSubject.route");
 const loginRoute = require("./routes/login.route");
@@ -28,9 +26,7 @@ mongoose.connect(
 );
 
 app.use("/api/login", loginRoute);
-app.use("/api/memo", checkToken.checkTokenMW, memoRoute);
-app.use("/api/category", checkToken.checkTokenMW, categoryRoute);
-app.use("/api/subject", checkToken.checkTokenMW, subjectRoute);
-app.use("/api/subsubject", checkToken.checkTokenMW, subSubjectRoute);
+app.use("/api/subject", subjectRoute);
+app.use("/api/subsubject", subSubjectRoute);
 
 app.listen(PORT);

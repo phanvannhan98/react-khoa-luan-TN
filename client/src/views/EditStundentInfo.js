@@ -13,13 +13,16 @@ import {
     Col,
 } from "reactstrap";
 
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 import MenuItem from "@material-ui/core/MenuItem";
 import Select from "@material-ui/core/Select";
 import DatePickerMaterial from "../components/DatePickerMaterial/DatePickerMaterial";
-import CallApi from "../utils/apiCaller";
 
 import { useDispatch, useSelector } from "react-redux";
 import * as actions from "../actions/actions";
+import CheckLogin from "components/checkLogin/CheckLogin";
 
 function EditStundentInfo(props) {
     const [userData, setUserData] = useState({
@@ -47,10 +50,7 @@ function EditStundentInfo(props) {
 
     const dispatch = useDispatch();
     const userInfo = useSelector((state) => state.userInfo);
-    const setLoadding = useCallback(
-        (data) => dispatch(actions.actSetLoadding(data)),
-        [dispatch]
-    );
+
     useEffect(() => {
         window.scrollTo(0, 0);
     }, []);
@@ -59,8 +59,31 @@ function EditStundentInfo(props) {
         userInfo.name && setUserData(userInfo);
     }, [userInfo]);
 
+    const notify = () =>
+        toast.success("​​‍ ‍✔ Updated!", {
+            position: "top-right",
+            autoClose: 2000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+        });
+
     return (
         <div className="intro-section1" id="home-section">
+            <CheckLogin {...props} />
+            <ToastContainer
+                position="top-right"
+                autoClose={2000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+            />
             <div
                 className="slide-1"
                 style={{ backgroundImage: 'url("/images/hero_1.jpg")' }}
@@ -364,11 +387,7 @@ function EditStundentInfo(props) {
                                                             className="btn-fill"
                                                             color="primary"
                                                             type="submit"
-                                                            onClick={() => {
-                                                                // props.history.push(
-                                                                //     "/student-info"
-                                                                // );
-                                                                setLoadding(1);
+                                                            onClick={async () => {
                                                                 const userData = {
                                                                     name,
                                                                     ngaysinh,
@@ -379,18 +398,12 @@ function EditStundentInfo(props) {
                                                                     diachi,
                                                                     aboutme,
                                                                 };
-
-                                                                CallApi(
-                                                                    "/api/login/edit-user-info",
-                                                                    "POST",
-                                                                    userData
-                                                                ).then(
-                                                                    (res) => {
-                                                                        setLoadding(
-                                                                            100
-                                                                        );
-                                                                    }
+                                                                const a = await dispatch(
+                                                                    actions.actUpdateUserInfoRequest(
+                                                                        userData
+                                                                    )
                                                                 );
+                                                                notify();
                                                             }}
                                                         >
                                                             Save
@@ -424,22 +437,21 @@ function EditStundentInfo(props) {
                                                                 src={require("assets/img/emilyz.jpg")}
                                                             />
                                                             <h5 className="title">
-                                                                Mike Andrew
+                                                                {userInfo.name
+                                                                    ? userInfo.name
+                                                                    : "Mike Andrew"}
                                                             </h5>
                                                         </a>
                                                         <p className="description">
-                                                            Ceo/Co-Founder
+                                                            Student
                                                         </p>
                                                     </div>
-                                                    <div className="card-description">
-                                                        {/* Do not be scared of the
-                                                        truth because we need to
-                                                        restart the human
-                                                        foundation in truth And
-                                                        I love you like Kanye
-                                                        loves Kanye I love Rick
-                                                        Owens’ bed design but
-                                                        the back is... */}
+                                                    <div
+                                                        className="card-description"
+                                                        style={{
+                                                            minWidth: "290px",
+                                                        }}
+                                                    >
                                                         {aboutme}
                                                     </div>
                                                 </CardBody>

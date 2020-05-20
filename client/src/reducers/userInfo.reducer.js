@@ -6,7 +6,10 @@ export default (state = InitialState, action) => {
         case types.GET_USER_INFO:
             state = action.data;
             return { ...state };
-        default:
+        case types.UPDATE_USER_INFO:
+            state = { ...state, ...action.data };
             return { ...state };
+        default:
+            return state;
     }
 };

@@ -16,22 +16,45 @@ import Courses from "components/Courses/Courses";
 import { StylesProvider } from "@material-ui/styles";
 import { MuiThemeProvider } from "@material-ui/core";
 import theme from "../../utils/theme";
+import callAPI from "utils/apiCaller";
+import getToken from "utils/getToken";
+import SubSubject from "components/SubSubject/SubSubject";
+import Studying from "components/Studying/Studying";
 
 function Home(props) {
     console.log("render");
     const isLoadding = useSelector((state) => state.loadding);
-    const dispatch = useDispatch();
 
-    useEffect(() => {
-        dispatch(actions.actGetUserInfoRequest());
-        dispatch(actions.actGetAllSubjectRequest());
-        dispatch(actions.actGetAllSubSubjectRequest());
-    }, [dispatch]);
+    const dispatch = useDispatch();
 
     const setLoadding = useCallback(
         (data) => dispatch(actions.actSetLoadding(data)),
         [dispatch]
     );
+    let token = getToken();
+
+    useEffect(() => {
+        dispatch(actions.actGetAllSubSubjectRequest());
+        dispatch(actions.actGetAllSubjectRequest());
+    }, [dispatch]);
+
+    const logined = useCallback(
+        (isLogined) => {
+            if (isLogined) {
+                dispatch(actions.actGetUserInfoRequest());
+            } else {
+                props.history.push("/home/login");
+            }
+        },
+        [dispatch, props.history]
+    );
+
+    useEffect(() => {
+        callAPI("/api/login/checktoken", "POST").then((res) => {
+            logined(res);
+        });
+    }, [token, logined]);
+
     return (
         <MuiThemeProvider theme={theme}>
             <StylesProvider>
@@ -47,9 +70,19 @@ function Home(props) {
                         <Route path="/home" component={HomeInfo} />
                         <Route path="/student-info" component={StudentInfo} />
                         <Route path="/edit-info" component={EditStundentInfo} />
-                        <Route path="/courses" component={Courses} />
+                        <Route exact path="/courses" component={Courses} />
+                        <Route
+                            exact
+                            path="/courses/:id"
+                            component={SubSubject}
+                        />
+                        <Route
+                            exact
+                            path="/courses/studying/:id"
+                            component={Studying}
+                        />
 
-                        <Redirect from="*" to="/home/login" />
+                        <Redirect from="*" to="/student-info" />
                     </Switch>
 
                     <FooterHome />

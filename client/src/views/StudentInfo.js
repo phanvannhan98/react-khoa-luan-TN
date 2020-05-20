@@ -3,8 +3,9 @@ import React, { useEffect } from "react";
 import { Button, Card, CardBody, CardFooter, CardText } from "reactstrap";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
+import CheckLogin from "components/checkLogin/CheckLogin";
 
-function StudentInfo() {
+function StudentInfo(props) {
     const userInfo = useSelector((state) => state.userInfo);
 
     useEffect(() => {
@@ -12,6 +13,7 @@ function StudentInfo() {
     }, []);
     return (
         <div className="intro-section">
+            <CheckLogin {...props} />
             <div
                 className="slide-1"
                 style={{

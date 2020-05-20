@@ -10,7 +10,6 @@ module.exports.getAllUser = async (req, res) => {
 
 module.exports.checkLogin = async (req, res) => {
     const { username, password } = req.body;
-    console.log(req.body);
     let data = await User.find();
     let loginData = await Login.find();
 
@@ -93,8 +92,6 @@ module.exports.register = async (req, res) => {
 };
 
 module.exports.editUserInfo = async (req, res) => {
-    console.log(req.userData, req.body);
-
     const { userData } = req;
     const {
         name,

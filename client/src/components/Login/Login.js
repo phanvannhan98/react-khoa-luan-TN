@@ -1,10 +1,11 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import { Link, Redirect } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import * as actions from "../../actions/actions";
 import axios from "axios";
+import callAPI from "utils/apiCaller";
 
-function Login() {
+function Login(props) {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [isRedirect, setIsRedirect] = useState("");
@@ -17,20 +18,11 @@ function Login() {
         [dispatch]
     );
 
-    // useEffect(() => {
-    //     let token =
-    //         document.cookie &&
-    //         document.cookie.split(";").find((n) => n.includes("authorization"))
-    //             ? document.cookie
-    //                   .split(";")
-    //                   .find((n) => n.includes("authorization"))
-    //                   .split("=")[1]
-    //             : "";
-
-    //     if (token) {
-    //         setIsRedirect(true);
-    //     }
-    // }, []);
+    useEffect(() => {
+        callAPI("/api/login/checktoken", "POST").then((res) => {
+            res && props.history.push("/student-info");
+        });
+    }, [props.history]);
 
     const onSubmit = (e) => {
         e.preventDefault();

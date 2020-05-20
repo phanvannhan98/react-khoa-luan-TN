@@ -1,13 +1,14 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 function Subject(props) {
-    const { name, description, image, numberOflevel, price } = props.value;
+    const { _id, name, description, image, numberOflevel, price } = props.value;
     return (
         <div className="course  bg-white h-100 align-self-stretch">
             <figure className="m-0">
-                <a href="course-single.html">
+                <Link to={`/courses/${_id}`}>
                     <img src={image} alt={description} className="img-fluid" />
-                </a>
+                </Link>
             </figure>
             <div className="course-inner-text py-4 px-4">
                 <span className="course-price">${price}</span>

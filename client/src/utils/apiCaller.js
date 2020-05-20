@@ -1,15 +1,8 @@
 import axios from "axios";
+import getToken from "./getToken";
 
 const callAPI = (endpoint, method = "GET", body) => {
-    let token =
-        document.cookie &&
-        document.cookie.split(";").find((n) => n.includes("authorization"))
-            ? document.cookie
-                  .split(";")
-                  .find((n) => n.includes("authorization"))
-                  .split("=")[1]
-            : "";
-
+    const token = getToken();
     if (token !== "") {
         return axios({
             method: method,

@@ -1,9 +1,13 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import Subject from "components/Subject/Subject";
 
 function Courses() {
     const subject = useSelector((state) => state.subject);
+
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    });
 
     const showCarousel = () => {
         const carouselItem = (arr, isActive) => (
