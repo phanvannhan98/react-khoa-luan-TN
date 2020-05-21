@@ -1,6 +1,6 @@
 import React from "react";
 
-function FooterHome() {
+function FooterHome(props) {
     return (
         <footer className="footer-section bg-white">
             <div className="container">
@@ -29,6 +29,19 @@ function FooterHome() {
                             </li>
                             <li>
                                 <a href="/">Teachers</a>
+                            </li>
+                            <li>
+                                <a
+                                    style={{ borderBottom: "1px solid" }}
+                                    href="/"
+                                    onClick={(e) => {
+                                        e.preventDefault();
+                                        document.cookie = `authorization=''; path=/`;
+                                        props.history.push("/home/login");
+                                    }}
+                                >
+                                    Log Out
+                                </a>
                             </li>
                         </ul>
                     </div>

@@ -1590,3 +1590,14 @@ h5,
 .Toastify__toast-body {
     text-indent: 10px;
 }
+.course-study {
+    width: 370px;
+}
+@media (max-width: 450px) {
+    .course-study {
+        width: 90%;
+    }
+    .mobile-hide {
+        display: none;
+    }
+}

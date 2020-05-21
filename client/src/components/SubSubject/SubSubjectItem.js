@@ -4,16 +4,19 @@ import { Link } from "react-router-dom";
 function SubSubjectItem(props) {
     const { _id, name, description, image, lessonNum, price, level } =
         props.value || {};
-    console.log(props.location);
+    const isStudyingPage =
+        props.location.pathname.includes("studying") === true;
+    const clName = isStudyingPage ? "course-study " : "";
     return (
-        <div className="course  bg-white h-100 align-self-stretch">
+        <div className={clName + "course bg-white h-100 align-self-stretch"}>
             <figure className="m-0">
-                {!props.location.pathname.includes("studying") && _id ? (
+                {!isStudyingPage && _id ? (
                     <Link to={`/courses/studying/${_id}`}>
                         <img
                             src={image || "/images/backagain.png"}
                             alt={description}
                             className="img-fluid"
+                            style={{ height: "205px" }}
                         />
                     </Link>
                 ) : (
@@ -22,6 +25,7 @@ function SubSubjectItem(props) {
                             src={image || "/images/backagain.png"}
                             alt={description}
                             className="img-fluid"
+                            style={{ height: "205px" }}
                         />
                     </div>
                 )}

@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useEffect, useState } from "react";
 import {
     Button,
     Card,
@@ -398,7 +398,7 @@ function EditStundentInfo(props) {
                                                                     diachi,
                                                                     aboutme,
                                                                 };
-                                                                const a = await dispatch(
+                                                                await dispatch(
                                                                     actions.actUpdateUserInfoRequest(
                                                                         userData
                                                                     )

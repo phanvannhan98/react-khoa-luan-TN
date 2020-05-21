@@ -14,6 +14,11 @@ import routes from "routes.js";
 import logo from "assets/img/react-logo.png";
 
 import "assets/scss/black-dashboard-react.scss";
+import { connect } from "react-redux";
+import * as actions from "../../actions/actions";
+import { StylesProvider } from "@material-ui/styles";
+import { MuiThemeProvider } from "@material-ui/core";
+import themeAdmin from "utils/themeAdmin";
 
 var ps;
 
@@ -27,6 +32,7 @@ class Admin extends React.Component {
         };
     }
     componentDidMount() {
+        this.props.getData();
         if (navigator.platform.indexOf("Win") > -1) {
             document.documentElement.className += " perfect-scrollbar-on";
             document.documentElement.classList.remove("perfect-scrollbar-off");
@@ -69,6 +75,7 @@ class Admin extends React.Component {
             if (prop.layout === "/admin") {
                 return (
                     <Route
+                        exact={prop.exact}
                         path={prop.layout + prop.path}
                         component={prop.component}
                         key={key}
@@ -84,11 +91,13 @@ class Admin extends React.Component {
     };
     getBrandText = (path) => {
         for (let i = 0; i < routes.length; i++) {
-            if (
-                this.props.location.pathname.indexOf(
-                    routes[i].layout + routes[i].path
-                ) !== -1
-            ) {
+            let pathname = routes[i].layout + routes[i].path;
+            let isHaveParams = pathname.indexOf(":");
+            pathname =
+                isHaveParams !== -1
+                    ? pathname.substring(0, isHaveParams - 1)
+                    : pathname;
+            if (this.props.location.pathname.indexOf(pathname) !== -1) {
                 return routes[i].name;
             }
         }
@@ -97,51 +106,65 @@ class Admin extends React.Component {
     render() {
         return (
             <>
-                <div className="wrapper">
-                    <Sidebar
-                        {...this.props}
-                        routes={routes}
-                        bgColor={this.state.backgroundColor}
-                        logo={{
-                            outterLink: "https://www.creative-tim.com/",
-                            text: "Admin Manager",
-                            imgSrc: logo,
-                        }}
-                        toggleSidebar={this.toggleSidebar}
-                    />
-                    <div
-                        className="main-panel"
-                        ref="mainPanel"
-                        data={this.state.backgroundColor}
-                    >
-                        <AdminNavbar
-                            {...this.props}
-                            brandText={this.getBrandText(
-                                this.props.location.pathname
-                            )}
-                            toggleSidebar={this.toggleSidebar}
-                            sidebarOpened={this.state.sidebarOpened}
+                <MuiThemeProvider theme={themeAdmin}>
+                    <StylesProvider>
+                        <div className="wrapper">
+                            <Sidebar
+                                {...this.props}
+                                routes={routes}
+                                bgColor={this.state.backgroundColor}
+                                logo={{
+                                    outterLink: "https://www.creative-tim.com/",
+                                    text: "Admin Manager",
+                                    imgSrc: logo,
+                                }}
+                                toggleSidebar={this.toggleSidebar}
+                            />
+                            <div
+                                className="main-panel"
+                                ref="mainPanel"
+                                data={this.state.backgroundColor}
+                            >
+                                <AdminNavbar
+                                    {...this.props}
+                                    brandText={this.getBrandText(
+                                        this.props.location.pathname
+                                    )}
+                                    toggleSidebar={this.toggleSidebar}
+                                    sidebarOpened={this.state.sidebarOpened}
+                                />
+                                <Switch>
+                                    {this.getRoutes(routes)}
+                                    <Redirect from="*" to="/admin/dashboard" />
+                                </Switch>
+                                {
+                                    // we don't want the Footer to be rendered on map page
+                                    this.props.location.pathname.indexOf(
+                                        "maps"
+                                    ) !== -1 ? null : (
+                                        <Footer fluid />
+                                    )
+                                }
+                            </div>
+                        </div>
+                        <FixedPlugin
+                            bgColor={this.state.backgroundColor}
+                            handleBgClick={this.handleBgClick}
                         />
-                        <Switch>
-                            {this.getRoutes(routes)}
-                            <Redirect from="*" to="/admin/dashboard" />
-                        </Switch>
-                        {
-                            // we don't want the Footer to be rendered on map page
-                            this.props.location.pathname.indexOf("maps") !==
-                            -1 ? null : (
-                                <Footer fluid />
-                            )
-                        }
-                    </div>
-                </div>
-                <FixedPlugin
-                    bgColor={this.state.backgroundColor}
-                    handleBgClick={this.handleBgClick}
-                />
+                    </StylesProvider>
+                </MuiThemeProvider>
             </>
         );
     }
 }
 
-export default Admin;
+const mapDispatchToProps = (dispatch, ownProps) => {
+    return {
+        getData: () => {
+            dispatch(actions.actGetAllTeacherRequest());
+            dispatch(actions.actGetAllSubSubjectRequest());
+            dispatch(actions.actGetAllSubjectRequest());
+        },
+    };
+};
+export default connect(null, mapDispatchToProps)(Admin);

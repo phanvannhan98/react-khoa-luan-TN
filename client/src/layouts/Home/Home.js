@@ -24,7 +24,8 @@ import Studying from "components/Studying/Studying";
 function Home(props) {
     console.log("render");
     const isLoadding = useSelector((state) => state.loadding);
-
+    const teacher = useSelector((state) => state.teacher);
+    console.log(teacher);
     const dispatch = useDispatch();
 
     const setLoadding = useCallback(
@@ -36,6 +37,7 @@ function Home(props) {
     useEffect(() => {
         dispatch(actions.actGetAllSubSubjectRequest());
         dispatch(actions.actGetAllSubjectRequest());
+        dispatch(actions.actGetAllTeacherRequest());
     }, [dispatch]);
 
     const logined = useCallback(
@@ -85,7 +87,7 @@ function Home(props) {
                         <Redirect from="*" to="/student-info" />
                     </Switch>
 
-                    <FooterHome />
+                    <FooterHome {...props} />
                 </div>
             </StylesProvider>
         </MuiThemeProvider>

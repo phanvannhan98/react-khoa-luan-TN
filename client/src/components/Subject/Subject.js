@@ -7,7 +7,12 @@ function Subject(props) {
         <div className="course  bg-white h-100 align-self-stretch">
             <figure className="m-0">
                 <Link to={`/courses/${_id}`}>
-                    <img src={image} alt={description} className="img-fluid" />
+                    <img
+                        src={image}
+                        alt={description}
+                        className="img-fluid"
+                        style={{ height: "205px" }}
+                    />
                 </Link>
             </figure>
             <div className="course-inner-text py-4 px-4">

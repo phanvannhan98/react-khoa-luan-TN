@@ -54,10 +54,15 @@ function Studying(props) {
                     </div>
                 </div>
                 <div className="row justify-content-center">
-                    <Col md="4" style={{ display: "flex", marginTop: "1rem" }}>
+                    <Col
+                        xl="4"
+                        md="6"
+                        xs="10"
+                        style={{ display: "flex", marginTop: "1rem" }}
+                    >
                         <span
                             to="/courses"
-                            className="btn btn-primary text-center"
+                            className="btn btn-primary text-center mobile-hide"
                         >
                             Buổi học
                         </span>
@@ -103,10 +108,15 @@ function Studying(props) {
                     </Col>
                 </div>
                 <div className="row justify-content-center">
-                    <Col md="4" style={{ display: "flex", marginTop: "1rem" }}>
+                    <Col
+                        xl="4"
+                        md="6"
+                        xs="10"
+                        style={{ display: "flex", marginTop: "1rem" }}
+                    >
                         <span
                             to="/courses"
-                            className="btn btn-primary text-center"
+                            className="btn btn-primary text-center mobile-hide"
                             style={{ minWidth: "123.67px" }}
                         >
                             Thứ
@@ -141,7 +151,9 @@ function Studying(props) {
                 </div>
                 <div className="row justify-content-center">
                     <Link
-                        to={ssb && `/courses/${ssb.subjectType}`}
+                        to={
+                            (ssb && `/courses/${ssb.subjectType}`) || `/courses`
+                        }
                         className="btn btn-primary mt-3 text-center mr-3"
                     >
                         Quay lại

@@ -5,9 +5,10 @@ const path = require("path");
 const mongoose = require("mongoose");
 
 // Route
+const loginRoute = require("./routes/login.route");
 const subjectRoute = require("./routes/subject.route");
 const subSubjectRoute = require("./routes/subSubject.route");
-const loginRoute = require("./routes/login.route");
+const teacherRoute = require("./routes/teacher.route");
 
 // CheckToken
 const checkToken = require("./controllers/user.controller");
@@ -28,5 +29,6 @@ mongoose.connect(
 app.use("/api/login", loginRoute);
 app.use("/api/subject", subjectRoute);
 app.use("/api/subsubject", subSubjectRoute);
+app.use("/api/teacher", teacherRoute);
 
 app.listen(PORT);

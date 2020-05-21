@@ -4,7 +4,6 @@ import { useSelector } from "react-redux";
 import SubSubjectItem from "./SubSubjectItem";
 
 function SubSubject(props) {
-    console.log(props.location);
     const subSubjects = useSelector((state) => state.subSubject);
     const subject = useSelector((state) => state.subject);
     const id = props.match.params.id;

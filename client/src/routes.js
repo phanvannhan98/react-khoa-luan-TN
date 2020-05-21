@@ -4,6 +4,7 @@ import Notifications from "views/Notifications.js";
 import TableList from "views/TableList.js";
 import Typography from "views/Typography.js";
 import UserProfile from "views/UserProfile.js";
+import EditTeacherInfo from "views/EditTeacherInfo";
 
 var routes = [
     {
@@ -30,8 +31,25 @@ var routes = [
     {
         path: "/user-profile",
         name: "User Profile",
+        exact: true,
         icon: "tim-icons icon-single-02",
         component: UserProfile,
+        layout: "/admin",
+    },
+    {
+        path: "/edit-teacher/:id",
+        name: "Edit Teacher Info",
+        icon: "tim-icons icon-single-02",
+        component: EditTeacherInfo,
+        hidden: true,
+        layout: "/admin",
+    },
+    {
+        path: "/add-teacher",
+        name: "Add New Teacher",
+        icon: "tim-icons icon-single-02",
+        component: EditTeacherInfo,
+        hidden: true,
         layout: "/admin",
     },
     {
