@@ -26,7 +26,7 @@ import CheckLogin from "components/checkLogin/CheckLogin";
 
 function EditStundentInfo(props) {
     const [userData, setUserData] = useState({
-        name: "Phan Văn Nhân",
+        name: "",
         ngaysinh: new Date("08-10-1998"),
         soCmnd: "197433681",
         gioitinh: 1,
@@ -59,16 +59,26 @@ function EditStundentInfo(props) {
         userInfo.name && setUserData(userInfo);
     }, [userInfo]);
 
-    const notify = () =>
-        toast.success("​​‍ ‍✔ Updated!", {
-            position: "top-right",
-            autoClose: 2000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-        });
+    const notify = (isErr) =>
+        !isErr
+            ? toast.success(`​​‍ ‍✔ Update thành công!`, {
+                  position: "top-right",
+                  autoClose: 2000,
+                  hideProgressBar: false,
+                  closeOnClick: true,
+                  pauseOnHover: true,
+                  draggable: true,
+                  progress: undefined,
+              })
+            : toast.error(`​​‍ ‍✘ Vui lòng kiểm tra lại!`, {
+                  position: "top-right",
+                  autoClose: 2000,
+                  hideProgressBar: false,
+                  closeOnClick: true,
+                  pauseOnHover: true,
+                  draggable: true,
+                  progress: undefined,
+              });
 
     return (
         <div className="intro-section1" id="home-section">
@@ -129,7 +139,7 @@ function EditStundentInfo(props) {
                                                                         value={
                                                                             name
                                                                         }
-                                                                        placeholder="Username"
+                                                                        placeholder="Họ và tên..."
                                                                         type="text"
                                                                         required
                                                                         onChange={(
@@ -398,6 +408,16 @@ function EditStundentInfo(props) {
                                                                     diachi,
                                                                     aboutme,
                                                                 };
+
+                                                                if (
+                                                                    !name.length
+                                                                ) {
+                                                                    notify(
+                                                                        true
+                                                                    );
+                                                                    return;
+                                                                }
+
                                                                 await dispatch(
                                                                     actions.actUpdateUserInfoRequest(
                                                                         userData

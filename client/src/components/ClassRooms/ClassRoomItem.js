@@ -10,7 +10,7 @@ function ClassRoomItem(props) {
     const userInfo = useSelector((state) => state.userInfo);
     const studentStudying = useSelector((state) => state.studentStudying);
 
-    const ssOfUser = studentStudying.filter((v) => v.user === userInfo._id);
+    const ssOfUser = studentStudying.filter((v) => v.user._id === userInfo._id);
 
     const dispatch = useDispatch();
 
@@ -27,16 +27,18 @@ function ClassRoomItem(props) {
     const isStudyingPage =
         props.location.pathname.includes("studying") === true;
     const clName = "";
-    console.log(dadangky);
     const choseSubject = () => {
         const data = {
             classroom: _id,
             user: userInfo._id,
         };
         const token = getToken();
-        console.log(token.length);
         if (token) {
-            dispatch(actions.actAddNewStudentStudyingRequest(data));
+            if (!(userInfo.name && userInfo.name.length)) {
+                props.history.push("/edit-info");
+            }
+            (!dadangky || dadangky.trangthai === 0) &&
+                dispatch(actions.actAddNewStudentStudyingRequest(data));
         } else {
             props.history.push("/home/login");
         }

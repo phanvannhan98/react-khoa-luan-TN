@@ -165,6 +165,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
             dispatch(actions.actGetAllSubSubjectRequest());
             dispatch(actions.actGetAllSubjectRequest());
             dispatch(actions.actGetAllClassroomRequest());
+            dispatch(actions.actGetAllStudentStudyingRequest());
         },
     };
 };

@@ -115,7 +115,6 @@ export const actAddNewTeacherRequest = (data) => {
     return (dispatch) => {
         dispatch(actSetLoadding(0));
         return Axios.post("/api/teacher/add-teacher", data).then((res) => {
-            console.log(res);
             dispatch(actAddNewTeacher(res.data));
             dispatch(actSetLoadding(100));
             return;

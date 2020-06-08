@@ -2,8 +2,10 @@ const StudentStudying = require("../models/studentStudying.model");
 let convertToObjectId = require("mongodb").ObjectId;
 
 module.exports.getAllStudentStudying = async (req, res) => {
-    const data = await StudentStudying.find();
-    console.log("zo");
+    let data = await StudentStudying.find().populate({
+        path: "user",
+        select: "name _id",
+    });
     res.send(data);
 };
 
@@ -34,7 +36,15 @@ module.exports.addNewStudentStudying = async (req, res) => {
         trangthai: 0,
     });
     const result = await data.save();
-    res.send(result);
+
+    let a = await StudentStudying.findOne({
+        _id: convertToObjectId(result._id),
+    }).populate({
+        path: "user",
+        select: "name _id",
+    });
+
+    res.send(a);
 };
 
 module.exports.deleteStudentStudyingById = async (req, res) => {

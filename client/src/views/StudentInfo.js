@@ -58,7 +58,7 @@ function StudentInfo(props) {
                                             data-aos-delay={300}
                                         >
                                             <Link
-                                                to="/registered-courses"
+                                                to="/student-studyng"
                                                 className="btn btn-primary py-3 px-5 btn-pill"
                                             >
                                                 Khoá Học đã đăng ký

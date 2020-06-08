@@ -7,7 +7,6 @@ module.exports.getAllClassroom = async (req, res) => {
 };
 
 module.exports.editClassroomInfo = async (req, res) => {
-    console.log(req.body);
     Classroom.find({ _id: convertToObjectId(req.body._id) })
         .updateOne({ $set: req.body })
         .exec()
