@@ -50,6 +50,7 @@
     .avatar {
         width: 124px;
         height: 124px;
+        object-fit: cover;
         border: 5px solid lighten($black, 5%);
         border-bottom-color: $transparent-bg;
         background-color: $transparent-bg;

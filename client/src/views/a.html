@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <style>
+            #ip-radio {
+                position: relative;
+            }
+            #ip-radio + .radio-red {
+                display: flex;
+                width: 13px;
+                height: 13px;
+                border: 1px solid red;
+                box-sizing: border-box;
+                border-radius: 50%;
+                justify-content: center;
+                align-items: center;
+            }
+
+            #ip-radio:checked + .radio-red::after {
+                content: "";
+                display: block;
+                width: 6px;
+                height: 6px;
+                background-color: red;
+                box-sizing: border-box;
+                border-radius: 50%;
+            }
+        </style>
+        <link
+            rel="stylesheet"
+            media="screen"
+            href="//netdna.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css"
+        />
+        <script src="//code.jquery.com/jquery.js"></script>
+        <script src="//netdna.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+    </head>
+    <body>
+        <input type="radio" name="radio" id="ip-radio" />
+        <input type="radio" name="radio" id="ip-radio1" />
+        <script>
+            let ipRadio = $("#ip-radio");
+            ipRadio.after('<label class="radio-red" for="ip-radio"></label>');
+            ipRadio.css("display", "none");
+        </script>
+    </body>
+</html>

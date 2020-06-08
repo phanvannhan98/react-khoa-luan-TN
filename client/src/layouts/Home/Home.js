@@ -20,12 +20,12 @@ import callAPI from "utils/apiCaller";
 import getToken from "utils/getToken";
 import SubSubject from "components/SubSubject/SubSubject";
 import Studying from "components/Studying/Studying";
+import ClassesOfSubject from "views/ClassesOfSubject";
+import StudentRegisted from "views/StudentRegisted";
 
 function Home(props) {
     console.log("render");
     const isLoadding = useSelector((state) => state.loadding);
-    const teacher = useSelector((state) => state.teacher);
-    console.log(teacher);
     const dispatch = useDispatch();
 
     const setLoadding = useCallback(
@@ -38,6 +38,8 @@ function Home(props) {
         dispatch(actions.actGetAllSubSubjectRequest());
         dispatch(actions.actGetAllSubjectRequest());
         dispatch(actions.actGetAllTeacherRequest());
+        dispatch(actions.actGetAllClassroomRequest());
+        dispatch(actions.actGetAllStudentStudyingRequest());
     }, [dispatch]);
 
     const logined = useCallback(
@@ -82,6 +84,14 @@ function Home(props) {
                             exact
                             path="/courses/studying/:id"
                             component={Studying}
+                        />
+                        <Route
+                            path="/studying/classes/:time/:id"
+                            component={ClassesOfSubject}
+                        />
+                        <Route
+                            path="/student-studyng"
+                            component={StudentRegisted}
                         />
 
                         <Redirect from="*" to="/student-info" />

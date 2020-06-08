@@ -30,7 +30,8 @@
         "react-top-loading-bar": "^1.2.0",
         "reactstrap": "8.4.1",
         "redux": "^4.0.5",
-        "redux-thunk": "^2.3.0"
+        "redux-thunk": "^2.3.0",
+        "shuffle-array": "^1.0.1"
     },
     "scripts": {
         "start": "react-scripts start",

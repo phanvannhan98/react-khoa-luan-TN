@@ -36,7 +36,7 @@ function FooterHome(props) {
                                     href="/"
                                     onClick={(e) => {
                                         e.preventDefault();
-                                        document.cookie = `authorization=''; path=/`;
+                                        document.cookie = `authorization=; path=/`;
                                         props.history.push("/home/login");
                                     }}
                                 >

@@ -36,7 +36,7 @@ const EditTeacherInfo = (props) => {
         gioitinh: 1,
         email: "",
         sdt: "",
-        isAssistant: "false",
+        isAssistant: false,
         subject: "",
     });
 
@@ -64,16 +64,19 @@ const EditTeacherInfo = (props) => {
             });
     }, [subjects, idTeacher]);
 
-    const notify = () =>
-        toast.success("​​‍ ‍✔ Updated!", {
-            position: "top-right",
-            autoClose: 2000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-        });
+    const notify = (isAdd) =>
+        toast.success(
+            `​​‍ ‍✔ ${isAdd ? "Thêm thành công!" : "Update thành công!"}`,
+            {
+                position: "top-right",
+                autoClose: 2000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+            }
+        );
 
     const onSubmit = async (e) => {
         e.preventDefault();
@@ -94,13 +97,17 @@ const EditTeacherInfo = (props) => {
             await dispatch(actions.actAddNewTeacherRequest(teacherData));
         }
 
-        notify();
+        notify(!idTeacher);
     };
 
     const onDelete = async () => {
-        console.log(idTeacher);
+        goToTablesPage();
         await dispatch(actions.actDeleteTeacherRequest(idTeacher));
     };
+
+    const goToTablesPage = () => props.history.push("/admin/tables");
+
+    if (idTeacher && !teacherCurrent._id && teachers.length) goToTablesPage();
 
     return (
         <div className="content">
@@ -298,10 +305,10 @@ const EditTeacherInfo = (props) => {
                                                     });
                                                 }}
                                             >
-                                                <MenuItem value="false">
+                                                <MenuItem value={false}>
                                                     Giáo Viên
                                                 </MenuItem>
-                                                <MenuItem value="true">
+                                                <MenuItem value={true}>
                                                     Trợ Giảng
                                                 </MenuItem>
                                             </Select>
@@ -330,11 +337,9 @@ const EditTeacherInfo = (props) => {
                                 <Button
                                     className="btn-fill"
                                     color="primary"
-                                    onClick={() =>
-                                        props.history.push("/admin/tables")
-                                    }
+                                    onClick={goToTablesPage}
                                 >
-                                    Cancel
+                                    Go Back
                                 </Button>
                             </CardFooter>
                         </Card>

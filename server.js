@@ -9,6 +9,8 @@ const loginRoute = require("./routes/login.route");
 const subjectRoute = require("./routes/subject.route");
 const subSubjectRoute = require("./routes/subSubject.route");
 const teacherRoute = require("./routes/teacher.route");
+const classroomRoute = require("./routes/classroom.route");
+const studentStudying = require("./routes/studentStudying.route");
 
 // CheckToken
 const checkToken = require("./controllers/user.controller");
@@ -30,5 +32,7 @@ app.use("/api/login", loginRoute);
 app.use("/api/subject", subjectRoute);
 app.use("/api/subsubject", subSubjectRoute);
 app.use("/api/teacher", teacherRoute);
+app.use("/api/classroom", classroomRoute);
+app.use("/api/student-studying", studentStudying);
 
 app.listen(PORT);

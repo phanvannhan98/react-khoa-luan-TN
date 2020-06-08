@@ -42,7 +42,7 @@ export const actUpdateUserInfoRequest = (data) => {
         dispatch(actUpdateUserInfo(data));
         return CallApi("/api/login/edit-user-info", "POST", data).then(() => {
             dispatch(actSetLoadding(100));
-            return "oke";
+            return;
         });
     };
 };
@@ -114,10 +114,11 @@ export const actAddNewTeacher = (data) => {
 export const actAddNewTeacherRequest = (data) => {
     return (dispatch) => {
         dispatch(actSetLoadding(0));
-        return CallApi("/api/teacher/add-teacher", "POST", data).then((res) => {
+        return Axios.post("/api/teacher/add-teacher", data).then((res) => {
+            console.log(res);
             dispatch(actAddNewTeacher(res.data));
             dispatch(actSetLoadding(100));
-            return "oke";
+            return;
         });
     };
 };
@@ -133,10 +134,10 @@ export const actUpdateTeacherInfoRequest = (data) => {
     return (dispatch) => {
         dispatch(actSetLoadding(0));
         dispatch(actUpdateTeacherInfo(data));
-        return CallApi("/api/teacher/edit-teacher-info", "POST", data).then(
+        return Axios.post("/api/teacher/edit-teacher-info", data).then(
             (res) => {
                 dispatch(actSetLoadding(100));
-                return "oke";
+                return;
             }
         );
     };
@@ -153,12 +154,158 @@ export const actDeleteTeacherRequest = (data) => {
     return (dispatch) => {
         dispatch(actSetLoadding(0));
         dispatch(actDeleteTeacher(data));
-        return CallApi("/api/teacher/delete-teacher/" + data, "DELETE").then(
+        return Axios.delete("/api/teacher/delete-teacher/" + data).then(
             (res) => {
                 dispatch(actSetLoadding(100));
-                return "oke";
+                return;
             }
         );
     };
 };
 // =>> End Teacher <==
+
+// Class Room
+export const actGetAllClassroom = (data) => {
+    return {
+        type: types.GET_ALL_CLASSROOM,
+        data,
+    };
+};
+
+export const actGetAllClassroomRequest = () => {
+    return (dispatch) => {
+        dispatch(actSetLoadding(0));
+        Axios("/api/classroom").then((res) => {
+            res && dispatch(actGetAllClassroom(res.data));
+            dispatch(actSetLoadding(100));
+        });
+    };
+};
+
+export const actAddNewClassroom = (data) => {
+    return {
+        type: types.ADD_NEW_CLASSROOM,
+        data,
+    };
+};
+
+export const actAddNewClassroomRequest = (data) => {
+    return (dispatch) => {
+        dispatch(actSetLoadding(0));
+        return Axios.post("/api/classroom", data).then((res) => {
+            dispatch(actAddNewClassroom(res.data));
+            dispatch(actSetLoadding(100));
+            return;
+        });
+    };
+};
+
+export const actUpdateClassroomInfo = (data) => {
+    return {
+        type: types.UPDATE_CLASSROOM_INFO,
+        data,
+    };
+};
+
+export const actUpdateClassroomInfoRequest = (data) => {
+    return (dispatch) => {
+        dispatch(actSetLoadding(0));
+        dispatch(actUpdateClassroomInfo(data));
+        return Axios.put("/api/classroom", data).then((res) => {
+            dispatch(actSetLoadding(100));
+            return;
+        });
+    };
+};
+
+export const actDeleteClassroom = (data) => {
+    return {
+        type: types.DELETE_CLASSROOM,
+        data,
+    };
+};
+
+export const actDeleteClassroomRequest = (data) => {
+    return (dispatch) => {
+        dispatch(actSetLoadding(0));
+        dispatch(actDeleteClassroom(data));
+        return Axios.delete("/api/classroom/" + data).then((res) => {
+            dispatch(actSetLoadding(100));
+            return;
+        });
+    };
+};
+// =>> End Class Room <==
+
+// Student Studying
+export const actGetAllStudentStudying = (data) => {
+    return {
+        type: types.GET_ALL_STUDENT_STUDYING,
+        data,
+    };
+};
+
+export const actGetAllStudentStudyingRequest = () => {
+    return (dispatch) => {
+        dispatch(actSetLoadding(0));
+        Axios("/api/student-studying").then((res) => {
+            res && dispatch(actGetAllStudentStudying(res.data));
+            dispatch(actSetLoadding(100));
+        });
+    };
+};
+
+export const actAddNewStudentStudying = (data) => {
+    return {
+        type: types.ADD_NEW_STUDENT_STUDYING,
+        data,
+    };
+};
+
+export const actAddNewStudentStudyingRequest = (data) => {
+    return (dispatch) => {
+        dispatch(actSetLoadding(0));
+        return Axios.post("/api/student-studying", data).then((res) => {
+            dispatch(actAddNewStudentStudying(res.data));
+            dispatch(actSetLoadding(100));
+            return;
+        });
+    };
+};
+
+export const actUpdateStudentStudyingInfo = (data) => {
+    return {
+        type: types.UPDATE_STUDENT_STUDYING_INFO,
+        data,
+    };
+};
+
+export const actUpdateStudentStudyingInfoRequest = (data) => {
+    return (dispatch) => {
+        dispatch(actSetLoadding(0));
+        dispatch(actUpdateStudentStudyingInfo(data));
+        return Axios.put("/api/student-studying", data).then((res) => {
+            dispatch(actSetLoadding(100));
+            return;
+        });
+    };
+};
+
+export const actDeleteStudentStudying = (data) => {
+    return {
+        type: types.DELETE_STUDENT_STUDYING,
+        data,
+    };
+};
+
+export const actDeleteStudentStudyingRequest = (data) => {
+    return (dispatch) => {
+        dispatch(actSetLoadding(0));
+        dispatch(actDeleteStudentStudying(data));
+        return Axios.delete("/api/student-studying/" + data).then((res) => {
+            dispatch(actSetLoadding(100));
+            return;
+        });
+    };
+};
+// =>> End Student Studying <==

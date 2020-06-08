@@ -96,7 +96,9 @@ module.exports.editTeacherInfo = async (req, res) => {
 
 module.exports.addNewTeacher = async (req, res) => {
     const teacher = new Teacher(req.body);
+    console.log(teacher);
     const result = await teacher.save();
+    console.log(result);
     res.send(result);
 };
 

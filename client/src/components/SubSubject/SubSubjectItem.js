@@ -43,7 +43,7 @@ function SubSubjectItem(props) {
                     level {level}
                 </span>
                 <div className="meta">
-                    <span className="icon-clock-o" />
+                    <span className="icon-clock-o far fa-clock" />
                     {lessonNum || 0} Lessons / {lessonNum * 2 || 0} Week
                 </div>
                 <h3>
@@ -55,10 +55,10 @@ function SubSubjectItem(props) {
             </div>
             <div className="d-flex border-top stats">
                 <div className="py-3 px-4">
-                    <span className="icon-users" /> 2,193 students
+                    <span className="icon-users fas fa-users" /> 2,193 students
                 </div>
                 <div className="py-3 px-4 w-25 ml-auto border-left">
-                    <span className="icon-chat" /> 2
+                    <span className="icon-chat fas fa-comments" /> 2
                 </div>
             </div>
         </div>

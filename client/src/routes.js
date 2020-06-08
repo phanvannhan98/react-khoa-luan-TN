@@ -5,6 +5,7 @@ import TableList from "views/TableList.js";
 import Typography from "views/Typography.js";
 import UserProfile from "views/UserProfile.js";
 import EditTeacherInfo from "views/EditTeacherInfo";
+import ManagerClRoom from "views/ManagerClRoom";
 
 var routes = [
     {
@@ -49,6 +50,22 @@ var routes = [
         name: "Add New Teacher",
         icon: "tim-icons icon-single-02",
         component: EditTeacherInfo,
+        hidden: true,
+        layout: "/admin",
+    },
+    {
+        path: "/add-classroom",
+        name: "Add New Class Room",
+        icon: "tim-icons icon-single-02",
+        component: ManagerClRoom,
+        hidden: true,
+        layout: "/admin",
+    },
+    {
+        path: "/edit-classroom/:id",
+        name: "Edit Class Room Info",
+        icon: "tim-icons icon-single-02",
+        component: ManagerClRoom,
         hidden: true,
         layout: "/admin",
     },

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import SubSubjectItem from "components/SubSubject/SubSubjectItem";
 import { useSelector } from "react-redux";
@@ -8,11 +8,13 @@ import { Col } from "reactstrap";
 function Studying(props) {
     const subSubject = useSelector((state) => state.subSubject);
     const subject = useSelector((state) => state.subject);
+
     const idSubSubject = props.match.params.id;
 
     const ssb = subSubject.find((v) => v._id === idSubSubject);
     const sb = ssb ? subject.find((v) => v._id === ssb.subjectType) : {};
 
+    const [time, setTime] = useState([1, 1]);
     return (
         <>
             <div className="site-section courses-title" id="courses-section">
@@ -69,7 +71,10 @@ function Studying(props) {
                         <Select
                             id="demo-simple-select"
                             className="form-control"
-                            value={1}
+                            value={time[0]}
+                            onChange={(e) => {
+                                setTime([+e.target.value, time[1]]);
+                            }}
                         >
                             <MenuItem value="1">
                                 <span
@@ -124,7 +129,10 @@ function Studying(props) {
                         <Select
                             id="demo-simple-select"
                             className="form-control"
-                            value="1"
+                            value={time[1]}
+                            onChange={(e) => {
+                                setTime([time[0], +e.target.value]);
+                            }}
                         >
                             <MenuItem value="1">
                                 <span
@@ -159,7 +167,9 @@ function Studying(props) {
                         Quay lại
                     </Link>
                     <Link
-                        to="/courses"
+                        to={`/studying/classes/${time.join(
+                            ","
+                        )}/${idSubSubject}`}
                         className="btn btn-primary mt-3 text-center"
                     >
                         Đăng kí lớp

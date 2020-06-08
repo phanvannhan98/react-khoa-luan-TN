@@ -38,6 +38,9 @@ const theme = createMuiTheme({
                 outline: "none",
             },
         },
+        MuiIconButton: {
+            root: { color: "rgba(255, 255, 255, 0.72)" },
+        },
         MuiMenuItem: {
             root: {
                 fontFamily: fontFamilyMuli,
